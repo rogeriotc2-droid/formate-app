@@ -1,6 +1,5 @@
 import { Link } from "wouter";
-import { Shield, Zap, FileText, CheckCircle2, Clock, Download, ArrowRight, Mail, X, Check, Play } from "lucide-react";
-import { LeadMagnetForm } from "@/components/marketing/lead-magnet-form";
+import { Shield, Zap, FileText, CheckCircle2, Clock, ArrowRight, Mail, X, Check, Play } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 
 const PLANS = [
@@ -83,7 +82,6 @@ export default function Landing() {
             </span>
           </div>
           <div className="flex items-center gap-1 sm:gap-2">
-            <a href="#templates" className="hidden sm:inline text-sm font-semibold text-white/70 hover:text-white px-3 py-2">Free templates</a>
             <a href="#pricing" className="hidden sm:inline text-sm font-semibold text-white/70 hover:text-white px-3 py-2">Pricing</a>
             <Link href="/sign-in">
               <button className="text-sm font-semibold text-white/70 hover:text-white px-3 sm:px-4 py-2">Sign in</button>
@@ -122,9 +120,6 @@ export default function Landing() {
                 <Zap className="w-4 h-4" /> Start 30-day free trial
               </button>
             </Link>
-            <a href="#templates" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-white/20 hover:border-white/40 text-white font-semibold px-5 py-3.5 rounded-md text-base">
-              <Download className="w-4 h-4" /> Free templates
-            </a>
           </div>
 
           <p className="mt-5 text-xs text-white/40">No credit card. Cancel anytime. Built in NZ for NZ &amp; AU tradies.</p>
@@ -222,75 +217,6 @@ export default function Landing() {
                 <p className="mt-1.5 text-sm text-white/55 leading-relaxed">{body}</p>
               </div>
             ))}
-          </div>
-        </section>
-
-        {/* Free templates & guides */}
-        <section id="templates" className="mx-auto w-full max-w-6xl px-5 sm:px-8 pb-16 sm:pb-24">
-          <div className="text-center mb-10">
-            <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/30 text-primary text-[11px] sm:text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full mb-4">
-              <Download className="w-3 h-3" /> Free — no card needed
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-black tracking-tight mb-3">Grab a free template now</h2>
-            <p className="text-white/60 text-sm sm:text-base max-w-xl mx-auto">
-              Print it, fill it in by hand, or do the exact same thing online in 60 seconds. Pick your document:
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
-            {[
-              { href: "/free-sssp-template", title: "SSSP Template", tag: "Site-Specific Safety Plan", desc: "WorkSafe NZ hazard register, task steps, emergency plan & PCBU sign-off." },
-              { href: "/swms-template", title: "SWMS Template", tag: "Safe Work Method Statement", desc: "High-risk job steps, hazards, controls & worker sign-off. NZ & AU." },
-              { href: "/jsa-template", title: "JSA Template", tag: "Job Safety Analysis", desc: "Break the job into steps, list hazards, write the controls. NZ & AU." },
-            ].map((t) => (
-              <Link key={t.href} href={t.href}>
-                <div className="group h-full bg-white/5 border border-white/10 hover:border-primary/50 hover:bg-white/[0.08] rounded-xl p-6 cursor-pointer transition-colors">
-                  <FileText className="w-5 h-5 text-primary" />
-                  <h3 className="mt-4 font-bold text-lg tracking-tight">{t.title}</h3>
-                  <p className="text-[11px] uppercase tracking-wider text-white/40 font-bold mt-1">{t.tag}</p>
-                  <p className="mt-3 text-sm text-white/55 leading-relaxed">{t.desc}</p>
-                  <span className="mt-4 inline-flex items-center gap-1.5 text-primary font-bold text-sm">
-                    Get the free template <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
-
-          <div className="mt-6 rounded-xl border border-white/10 bg-white/5 p-6 sm:p-7">
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary mb-4">New to SSSPs? Start here</p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              {[
-                { href: "/guides/what-is-an-sssp", label: "What is an SSSP?" },
-                { href: "/guides/how-to-write-an-sssp", label: "How to write an SSSP" },
-                { href: "/guides/sssp-requirements-nz", label: "SSSP requirements (NZ)" },
-              ].map((g) => (
-                <Link key={g.href} href={g.href}>
-                  <span className="flex items-center justify-between gap-2 text-sm font-semibold text-white/80 hover:text-white bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 rounded-lg px-4 py-3 cursor-pointer transition-colors">
-                    {g.label} <ArrowRight className="w-3.5 h-3.5 text-primary shrink-0" />
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Lead magnet */}
-        <section id="lead-magnet" className="mx-auto w-full max-w-3xl px-5 sm:px-8 pb-16 sm:pb-24">
-          <div className="rounded-2xl border border-primary/40 bg-gradient-to-br from-primary/15 to-primary/5 p-8 sm:p-12">
-            <div className="text-center mb-7">
-              <div className="inline-flex items-center gap-2 bg-cta text-white text-[11px] font-black uppercase tracking-wider px-3 py-1.5 rounded-full mb-4">
-                <Download className="w-3 h-3" /> Free download
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-black tracking-tight mb-3">
-                Get the free NZ SSSP template
-              </h2>
-              <p className="text-white/70 text-sm sm:text-base max-w-md mx-auto">
-                Ready-to-fill PDF you can use today. Built to WorkSafe NZ guidance.
-                Hazards, controls, task steps, and signature blocks — all included.
-              </p>
-            </div>
-            <LeadMagnetForm />
           </div>
         </section>
 
@@ -403,15 +329,7 @@ export default function Landing() {
 
       <footer className="border-t border-white/10">
         <div className="mx-auto w-full max-w-6xl px-5 sm:px-8 py-10">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-8 text-sm">
-            <div>
-              <p className="font-bold text-white/80 mb-3">Free templates</p>
-              <ul className="space-y-2 text-white/50">
-                <li><Link href="/free-sssp-template"><span className="hover:text-white cursor-pointer">SSSP template</span></Link></li>
-                <li><Link href="/swms-template"><span className="hover:text-white cursor-pointer">SWMS template</span></Link></li>
-                <li><Link href="/jsa-template"><span className="hover:text-white cursor-pointer">JSA template</span></Link></li>
-              </ul>
-            </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 mb-8 text-sm">
             <div>
               <p className="font-bold text-white/80 mb-3">Guides</p>
               <ul className="space-y-2 text-white/50">
