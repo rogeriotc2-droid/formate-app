@@ -1,8 +1,5 @@
 [phases.install]
-cmds = ["pnpm install --no-frozen-lockfile"]
-
-[phases.install.env]
-PUPPETEER_SKIP_DOWNLOAD = "true"
+cmds = ["PUPPETEER_SKIP_DOWNLOAD=true pnpm install --no-frozen-lockfile"]
 
 [phases.build]
 cmds = ["pnpm --filter @workspace/api-server run build"]
