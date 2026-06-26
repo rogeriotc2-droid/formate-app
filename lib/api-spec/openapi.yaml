@@ -1,0 +1,1669 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: SafeIQ API specification
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: sites
+    description: Site management
+  - name: licences
+    description: Licences & training expiry tracking
+  - name: templates
+    description: Form template management
+  - name: submissions
+    description: Form submission management
+  - name: dashboard
+    description: Dashboard and analytics
+  - name: sssps
+    description: Site-Specific Safety Plan management
+  - name: swms
+    description: Safe Work Method Statement management (AU)
+  - name: jsa
+    description: Job Safety Analysis
+
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /sites:
+    get:
+      operationId: listSites
+      tags: [sites]
+      summary: List all sites
+      responses:
+        "200":
+          description: List of sites
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Site"
+    post:
+      operationId: createSite
+      tags: [sites]
+      summary: Create a site
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SiteInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Site"
+
+  /sites/{id}:
+    get:
+      operationId: getSite
+      tags: [sites]
+      summary: Get a site by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Site
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Site"
+        "404":
+          description: Not found
+    patch:
+      operationId: updateSite
+      tags: [sites]
+      summary: Update a site
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SiteUpdate"
+      responses:
+        "200":
+          description: Updated site
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Site"
+    delete:
+      operationId: deleteSite
+      tags: [sites]
+      summary: Delete a site
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /licences:
+    get:
+      operationId: listLicences
+      tags: [licences]
+      summary: List all licences & training records
+      responses:
+        "200":
+          description: List of licences
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Licence"
+    post:
+      operationId: createLicence
+      tags: [licences]
+      summary: Create a licence or training record
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LicenceInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Licence"
+
+  /licences/{id}:
+    get:
+      operationId: getLicence
+      tags: [licences]
+      summary: Get a licence by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Licence
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Licence"
+        "404":
+          description: Not found
+    patch:
+      operationId: updateLicence
+      tags: [licences]
+      summary: Update a licence
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LicenceUpdate"
+      responses:
+        "200":
+          description: Updated licence
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Licence"
+    delete:
+      operationId: deleteLicence
+      tags: [licences]
+      summary: Delete a licence
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /templates:
+    get:
+      operationId: listTemplates
+      tags: [templates]
+      summary: List all form templates
+      responses:
+        "200":
+          description: List of templates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Template"
+    post:
+      operationId: createTemplate
+      tags: [templates]
+      summary: Create a form template
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TemplateInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Template"
+
+  /templates/{id}:
+    get:
+      operationId: getTemplate
+      tags: [templates]
+      summary: Get a template by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Template
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Template"
+        "404":
+          description: Not found
+    patch:
+      operationId: updateTemplate
+      tags: [templates]
+      summary: Update a template
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TemplateUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Template"
+    delete:
+      operationId: deleteTemplate
+      tags: [templates]
+      summary: Delete a template
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /templates/{id}/prefill:
+    get:
+      operationId: getTemplatePrefill
+      tags: [templates]
+      summary: Get prefilled sticky field values for a template
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Prefill data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PrefillData"
+
+  /submissions:
+    get:
+      operationId: listSubmissions
+      tags: [submissions]
+      summary: List all submissions
+      parameters:
+        - name: templateId
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: siteId
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: status
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of submissions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Submission"
+    post:
+      operationId: createSubmission
+      tags: [submissions]
+      summary: Submit a completed form
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SubmissionInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Submission"
+
+  /submissions/{id}:
+    get:
+      operationId: getSubmission
+      tags: [submissions]
+      summary: Get a submission by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Submission
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Submission"
+        "404":
+          description: Not found
+    patch:
+      operationId: updateSubmission
+      tags: [submissions]
+      summary: Update a submission
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SubmissionUpdate"
+      responses:
+        "200":
+          description: Updated submission
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Submission"
+    delete:
+      operationId: deleteSubmission
+      tags: [submissions]
+      summary: Delete a submission
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /dashboard/summary:
+    get:
+      operationId: getDashboardSummary
+      tags: [dashboard]
+      summary: Get dashboard summary stats
+      responses:
+        "200":
+          description: Summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardSummary"
+
+  /dashboard/recent:
+    get:
+      operationId: getRecentSubmissions
+      tags: [dashboard]
+      summary: Get the most recent 10 submissions
+      responses:
+        "200":
+          description: Recent submissions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Submission"
+
+  /dashboard/activity:
+    get:
+      operationId: getActivityFeed
+      tags: [dashboard]
+      summary: Get recent activity events
+      responses:
+        "200":
+          description: Activity events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ActivityEvent"
+
+  /jsa:
+    get:
+      operationId: listJsa
+      tags: [jsa]
+      summary: List all JSAs
+      responses:
+        "200":
+          description: List of JSAs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Jsa"
+    post:
+      operationId: createJsa
+      tags: [jsa]
+      summary: Create a JSA
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/JsaInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Jsa"
+
+  /jsa/{id}/lock:
+    post:
+      operationId: lockJsa
+      tags: [jsa]
+      summary: Lock a JSA (makes it read-only for audit)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Locked JSA
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Jsa"
+        "404":
+          description: Not found
+        "409":
+          description: Already locked
+
+  /jsa/{id}/snapshot:
+    get:
+      operationId: getJsaSnapshot
+      tags: [jsa]
+      summary: Download the locked PDF snapshot of a JSA
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: PDF file
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        "404":
+          description: Not found or no snapshot yet
+
+  /jsa/{id}:
+    get:
+      operationId: getJsa
+      tags: [jsa]
+      summary: Get a JSA by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: JSA
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Jsa"
+        "404":
+          description: Not found
+    patch:
+      operationId: updateJsa
+      tags: [jsa]
+      summary: Update a JSA
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/JsaUpdate"
+      responses:
+        "200":
+          description: Updated JSA
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Jsa"
+        "404":
+          description: Not found
+    delete:
+      operationId: deleteJsa
+      tags: [jsa]
+      summary: Delete a JSA
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+        "404":
+          description: Not found
+
+  /swms:
+    get:
+      operationId: listSwms
+      tags: [swms]
+      summary: List all SWMS
+      responses:
+        "200":
+          description: List of SWMS
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Swms"
+    post:
+      operationId: createSwms
+      tags: [swms]
+      summary: Create a SWMS
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SwmsInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Swms"
+
+  /swms/{id}/lock:
+    post:
+      operationId: lockSwms
+      tags: [swms]
+      summary: Lock a SWMS (makes it read-only for audit)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Locked SWMS
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Swms"
+        "404":
+          description: Not found
+        "409":
+          description: Already locked
+
+  /swms/{id}/snapshot:
+    get:
+      operationId: getSwmsSnapshot
+      tags: [swms]
+      summary: Download the locked PDF snapshot of a SWMS
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: PDF file
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        "404":
+          description: Not found or no snapshot yet
+
+  /swms/{id}:
+    get:
+      operationId: getSwms
+      tags: [swms]
+      summary: Get a SWMS by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: SWMS
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Swms"
+        "404":
+          description: Not found
+    patch:
+      operationId: updateSwms
+      tags: [swms]
+      summary: Update a SWMS
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SwmsUpdate"
+      responses:
+        "200":
+          description: Updated SWMS
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Swms"
+        "404":
+          description: Not found
+    delete:
+      operationId: deleteSwms
+      tags: [swms]
+      summary: Delete a SWMS
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+        "404":
+          description: Not found
+
+  /sssps:
+    get:
+      operationId: listSssps
+      tags: [sssps]
+      summary: List all SSSPs
+      responses:
+        "200":
+          description: List of SSSPs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Sssp"
+    post:
+      operationId: createSssp
+      tags: [sssps]
+      summary: Create an SSSP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SsspInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Sssp"
+
+  /sssps/{id}/send-email:
+    post:
+      operationId: sendSsspEmail
+      tags: [sssps]
+      summary: Send SSSP to a recipient by email
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SsspEmailInput"
+      responses:
+        "200":
+          description: Email sent
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+        "404":
+          description: Not found
+
+  /sssps/{id}:
+    get:
+      operationId: getSssp
+      tags: [sssps]
+      summary: Get an SSSP by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: SSSP
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Sssp"
+        "404":
+          description: Not found
+    patch:
+      operationId: updateSssp
+      tags: [sssps]
+      summary: Update an SSSP
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SsspUpdate"
+      responses:
+        "200":
+          description: Updated SSSP
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Sssp"
+        "404":
+          description: Not found
+    delete:
+      operationId: deleteSssp
+      tags: [sssps]
+      summary: Delete an SSSP
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+        "404":
+          description: Not found
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+
+    Site:
+      type: object
+      required:
+        - id
+        - name
+        - address
+        - pcbu
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        address:
+          type: string
+        pcbu:
+          type: string
+          description: Person Conducting a Business or Undertaking
+        principalEmail:
+          type: string
+          nullable: true
+          description: Principal PCBU email - receives a copy of every submission for this site
+        contactName:
+          type: string
+          nullable: true
+        contactPhone:
+          type: string
+          nullable: true
+        notes:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    SiteInput:
+      type: object
+      required:
+        - name
+        - address
+        - pcbu
+      properties:
+        name:
+          type: string
+          minLength: 1
+        address:
+          type: string
+          minLength: 1
+        pcbu:
+          type: string
+          minLength: 1
+        principalEmail:
+          type: string
+        contactName:
+          type: string
+        contactPhone:
+          type: string
+        notes:
+          type: string
+
+    SiteUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+        address:
+          type: string
+          minLength: 1
+        pcbu:
+          type: string
+          minLength: 1
+        principalEmail:
+          type: string
+        contactName:
+          type: string
+        contactPhone:
+          type: string
+        notes:
+          type: string
+
+    Licence:
+      type: object
+      required:
+        - id
+        - workerName
+        - recordType
+        - name
+        - remindersEnabled
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: integer
+        workerName:
+          type: string
+        recordType:
+          type: string
+          enum: [licence, training]
+        name:
+          type: string
+          description: Name of the licence or training (e.g. Working at Heights)
+        referenceNumber:
+          type: string
+          nullable: true
+        issueDate:
+          type: string
+          nullable: true
+          description: ISO date (YYYY-MM-DD)
+        expiryDate:
+          type: string
+          nullable: true
+          description: ISO date (YYYY-MM-DD); null means it never expires
+        reminderEmail:
+          type: string
+          nullable: true
+          description: Who to email reminders to; falls back to the company contact if blank
+        remindersEnabled:
+          type: boolean
+        notes:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    LicenceInput:
+      type: object
+      required:
+        - workerName
+        - name
+      properties:
+        workerName:
+          type: string
+          minLength: 1
+        recordType:
+          type: string
+          enum: [licence, training]
+          default: licence
+        name:
+          type: string
+          minLength: 1
+        referenceNumber:
+          type: string
+        issueDate:
+          type: string
+        expiryDate:
+          type: string
+        reminderEmail:
+          type: string
+        remindersEnabled:
+          type: boolean
+        notes:
+          type: string
+
+    LicenceUpdate:
+      type: object
+      properties:
+        workerName:
+          type: string
+          minLength: 1
+        recordType:
+          type: string
+          enum: [licence, training]
+        name:
+          type: string
+          minLength: 1
+        referenceNumber:
+          type: string
+        issueDate:
+          type: string
+        expiryDate:
+          type: string
+        reminderEmail:
+          type: string
+        remindersEnabled:
+          type: boolean
+        notes:
+          type: string
+
+    FieldDefinition:
+      type: object
+      required:
+        - key
+        - label
+        - type
+        - sticky
+      properties:
+        key:
+          type: string
+          description: Unique field identifier within this template
+        label:
+          type: string
+          description: Human-readable label shown on the form
+        type:
+          type: string
+          enum:
+            - text
+            - textarea
+            - date
+            - number
+            - select
+            - checkbox
+            - signature
+        sticky:
+          type: boolean
+          description: If true, last-used value is remembered and prefilled
+        required:
+          type: boolean
+        options:
+          type: array
+          items:
+            type: string
+          nullable: true
+          description: Options for select fields
+        placeholder:
+          type: string
+          nullable: true
+
+    Template:
+      type: object
+      required:
+        - id
+        - name
+        - category
+        - fields
+        - submissionCount
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        category:
+          type: string
+          description: "e.g. Inspection, Incident, Toolbox Talk, Permit"
+        description:
+          type: string
+          nullable: true
+        extraRecipientEmail:
+          type: string
+          nullable: true
+          description: Optional extra email (e.g. safety officer) that receives a copy of every submission for this template
+        fields:
+          type: array
+          items:
+            $ref: "#/components/schemas/FieldDefinition"
+        submissionCount:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    TemplateInput:
+      type: object
+      required:
+        - name
+        - category
+        - fields
+      properties:
+        name:
+          type: string
+          minLength: 1
+        category:
+          type: string
+          minLength: 1
+        description:
+          type: string
+        extraRecipientEmail:
+          type: string
+        fields:
+          type: array
+          items:
+            $ref: "#/components/schemas/FieldDefinition"
+
+    TemplateUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+        category:
+          type: string
+        description:
+          type: string
+        extraRecipientEmail:
+          type: string
+        fields:
+          type: array
+          items:
+            $ref: "#/components/schemas/FieldDefinition"
+
+    PrefillData:
+      type: object
+      required:
+        - templateId
+        - values
+      properties:
+        templateId:
+          type: integer
+        values:
+          type: object
+          description: Map of field key to last-used value for sticky fields
+
+    Submission:
+      type: object
+      required:
+        - id
+        - templateId
+        - templateName
+        - siteId
+        - siteName
+        - submittedBy
+        - status
+        - values
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: integer
+        templateId:
+          type: integer
+        templateName:
+          type: string
+        siteId:
+          type: integer
+        siteName:
+          type: string
+        submittedBy:
+          type: string
+        status:
+          type: string
+          enum:
+            - draft
+            - submitted
+            - reviewed
+        values:
+          type: object
+          description: Map of field key to submitted value
+        notes:
+          type: string
+          nullable: true
+        reviewedBy:
+          type: string
+          nullable: true
+        reviewedAt:
+          type: string
+          format: date-time
+          nullable: true
+        latitude:
+          type: number
+          format: float
+          nullable: true
+        longitude:
+          type: number
+          format: float
+          nullable: true
+        clientTimestamp:
+          type: string
+          format: date-time
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    SubmissionInput:
+      type: object
+      required:
+        - templateId
+        - siteId
+        - submittedBy
+        - values
+      properties:
+        templateId:
+          type: integer
+        siteId:
+          type: integer
+        submittedBy:
+          type: string
+          minLength: 1
+        status:
+          type: string
+          enum:
+            - draft
+            - submitted
+        values:
+          type: object
+          description: Map of field key to submitted value
+        notes:
+          type: string
+        latitude:
+          type: number
+          format: float
+          nullable: true
+        longitude:
+          type: number
+          format: float
+          nullable: true
+        clientTimestamp:
+          type: string
+          format: date-time
+          nullable: true
+
+    SubmissionUpdate:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - draft
+            - submitted
+            - reviewed
+        notes:
+          type: string
+        reviewedBy:
+          type: string
+        values:
+          type: object
+          description: Map of field key to submitted value
+
+    Jsa:
+      type: object
+      required:
+        - id
+        - jobName
+        - status
+        - data
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: integer
+        siteId:
+          type: integer
+          nullable: true
+        jobName:
+          type: string
+        status:
+          type: string
+          enum:
+            - draft
+            - active
+            - archived
+        data:
+          type: object
+        lockedAt:
+          type: string
+          format: date-time
+          nullable: true
+        lockedBy:
+          type: string
+          nullable: true
+        snapshotPdfKey:
+          type: string
+          nullable: true
+        snapshotStatus:
+          type: string
+          nullable: true
+          enum:
+            - pending
+            - complete
+            - failed
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    JsaInput:
+      type: object
+      required:
+        - jobName
+      properties:
+        jobName:
+          type: string
+          minLength: 1
+        siteId:
+          type: integer
+          nullable: true
+        status:
+          type: string
+          enum:
+            - draft
+            - active
+            - archived
+        data:
+          type: object
+
+    JsaUpdate:
+      type: object
+      properties:
+        jobName:
+          type: string
+          minLength: 1
+        siteId:
+          type: integer
+          nullable: true
+        status:
+          type: string
+          enum:
+            - draft
+            - active
+            - archived
+        data:
+          type: object
+
+    Swms:
+      type: object
+      required:
+        - id
+        - activityName
+        - status
+        - data
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: integer
+        siteId:
+          type: integer
+          nullable: true
+        activityName:
+          type: string
+        status:
+          type: string
+          enum:
+            - draft
+            - active
+            - archived
+        data:
+          type: object
+        lockedAt:
+          type: string
+          format: date-time
+          nullable: true
+        lockedBy:
+          type: string
+          nullable: true
+        snapshotPdfKey:
+          type: string
+          nullable: true
+        snapshotStatus:
+          type: string
+          nullable: true
+          enum:
+            - pending
+            - complete
+            - failed
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    SwmsInput:
+      type: object
+      required:
+        - activityName
+      properties:
+        activityName:
+          type: string
+          minLength: 1
+        siteId:
+          type: integer
+          nullable: true
+        status:
+          type: string
+          enum:
+            - draft
+            - active
+            - archived
+        data:
+          type: object
+
+    SwmsUpdate:
+      type: object
+      properties:
+        activityName:
+          type: string
+          minLength: 1
+        siteId:
+          type: integer
+          nullable: true
+        status:
+          type: string
+          enum:
+            - draft
+            - active
+            - archived
+        data:
+          type: object
+
+    Sssp:
+      type: object
+      required:
+        - id
+        - projectName
+        - status
+        - data
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: integer
+        siteId:
+          type: integer
+          nullable: true
+        projectName:
+          type: string
+        status:
+          type: string
+          enum:
+            - draft
+            - active
+            - archived
+        data:
+          type: object
+          description: Full SSSP data (personnel, hazards, emergency info, etc.)
+        lockedAt:
+          type: string
+          format: date-time
+          nullable: true
+        lockedBy:
+          type: string
+          nullable: true
+        snapshotPdfKey:
+          type: string
+          nullable: true
+        snapshotStatus:
+          type: string
+          nullable: true
+          enum:
+            - pending
+            - complete
+            - failed
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    SsspEmailInput:
+      type: object
+      required:
+        - recipientEmail
+      properties:
+        recipientEmail:
+          type: string
+          format: email
+        recipientName:
+          type: string
+
+    SsspInput:
+      type: object
+      required:
+        - projectName
+      properties:
+        projectName:
+          type: string
+          minLength: 1
+        siteId:
+          type: integer
+          nullable: true
+        status:
+          type: string
+          enum:
+            - draft
+            - active
+            - archived
+        data:
+          type: object
+
+    SsspUpdate:
+      type: object
+      properties:
+        projectName:
+          type: string
+          minLength: 1
+        siteId:
+          type: integer
+          nullable: true
+        status:
+          type: string
+          enum:
+            - draft
+            - active
+            - archived
+        data:
+          type: object
+
+    DashboardSummary:
+      type: object
+      required:
+        - totalSubmissions
+        - submissionsThisWeek
+        - totalTemplates
+        - totalSites
+        - draftCount
+        - submittedCount
+        - reviewedCount
+      properties:
+        totalSubmissions:
+          type: integer
+        submissionsThisWeek:
+          type: integer
+        totalTemplates:
+          type: integer
+        totalSites:
+          type: integer
+        draftCount:
+          type: integer
+        submittedCount:
+          type: integer
+        reviewedCount:
+          type: integer
+
+    ActivityEvent:
+      type: object
+      required:
+        - id
+        - type
+        - description
+        - createdAt
+      properties:
+        id:
+          type: integer
+        type:
+          type: string
+          enum:
+            - submission_created
+            - submission_reviewed
+            - template_created
+            - site_created
+        description:
+          type: string
+        entityId:
+          type: integer
+          nullable: true
+        entityName:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
