@@ -70,7 +70,7 @@ if (process.env.NODE_ENV === "production") {
   const frontendDist = path.resolve(process.cwd(), "artifacts/safeiq/dist/public");
   logger.info({ frontendDist }, "Serving frontend static files");
   app.use(express.static(frontendDist));
-  app.get("*", (_req, res) => {
+  app.use((_req, res) => {
     res.sendFile(path.join(frontendDist, "index.html"));
   });
 }
