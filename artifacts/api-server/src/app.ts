@@ -66,6 +66,16 @@ app.use(createSessionMiddleware());
 
 app.use("/api", router);
 
+// Serve hero-loop animation at /hero-loop/ (used by the landing page iframe)
+const heroLoopDist = path.resolve(process.cwd(), "artifacts/formate-hero-loop/dist/public");
+if (existsSync(heroLoopDist)) {
+  logger.info({ heroLoopDist }, "Serving hero-loop static files");
+  app.use("/hero-loop", express.static(heroLoopDist));
+  app.get("/hero-loop/*", (_req, res) => {
+    res.sendFile(path.join(heroLoopDist, "index.html"));
+  });
+}
+
 // Serve safeiq frontend static files when the dist folder exists (Railway production)
 const frontendDist = path.resolve(process.cwd(), "artifacts/safeiq/dist/public");
 if (existsSync(frontendDist)) {
