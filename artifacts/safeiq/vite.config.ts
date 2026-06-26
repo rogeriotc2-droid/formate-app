@@ -2,18 +2,17 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
-import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 import { VitePWA } from "vite-plugin-pwa";
 
 const port = Number(process.env.PORT ?? "25469");
 const basePath = process.env.BASE_PATH ?? "/";
+const isReplit = process.env.REPL_ID !== undefined;
 
 export default defineConfig({
   base: basePath,
   plugins: [
     react(),
     tailwindcss({ optimize: false }),
-    runtimeErrorOverlay(),
     VitePWA({
       registerType: "autoUpdate",
       devOptions: { enabled: false },
@@ -69,9 +68,11 @@ export default defineConfig({
         ],
       },
     }),
-    ...(process.env.NODE_ENV !== "production" &&
-    process.env.REPL_ID !== undefined
+    ...(isReplit
       ? [
+          await import("@replit/vite-plugin-runtime-error-modal").then((m) =>
+            m.default(),
+          ),
           await import("@replit/vite-plugin-cartographer").then((m) =>
             m.cartographer({
               root: path.resolve(import.meta.dirname, ".."),
