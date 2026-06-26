@@ -1,0 +1,52 @@
+import { Router, type IRouter } from "express";
+import { requireAuth } from "../middlewares/requireAuth";
+import authRouter from "./auth";
+import healthRouter from "./health";
+import sitesRouter from "./sites";
+import licencesRouter from "./licences";
+import templatesRouter from "./templates";
+import submissionsRouter from "./submissions";
+import dashboardRouter from "./dashboard";
+import ssspsRouter from "./sssps";
+import ssspPdfRouter from "./sssp-pdf";
+import swmsRouter from "./swms";
+import swmsPdfRouter from "./swms-pdf";
+import jsaRouter from "./jsa";
+import jsaPdfRouter from "./jsa-pdf";
+import companyRouter from "./company";
+import integrationsRouter from "./integrations";
+import xeroRouter from "./xero";
+import billingRouter from "./billing";
+import publicRouter from "./public";
+import storageRouter from "./storage";
+import leadsRouter from "./leads";
+import adminRouter from "./admin";
+import exportRouter from "./export";
+
+const router: IRouter = Router();
+
+router.use(healthRouter);
+router.use("/auth", authRouter);
+router.use("/public", publicRouter);
+router.use(storageRouter);
+router.use("/leads", leadsRouter);
+
+router.use("/sites", requireAuth, sitesRouter);
+router.use("/licences", requireAuth, licencesRouter);
+router.use("/templates", requireAuth, templatesRouter);
+router.use("/submissions", requireAuth, submissionsRouter);
+router.use("/dashboard", requireAuth, dashboardRouter);
+router.use("/sssps", requireAuth, ssspsRouter);
+router.use("/sssps", requireAuth, ssspPdfRouter);
+router.use("/swms", requireAuth, swmsRouter);
+router.use("/swms", requireAuth, swmsPdfRouter);
+router.use("/jsa", requireAuth, jsaRouter);
+router.use("/jsa", requireAuth, jsaPdfRouter);
+router.use("/company", requireAuth, companyRouter);
+router.use("/integrations", requireAuth, integrationsRouter);
+router.use("/xero", xeroRouter);
+router.use("/billing", requireAuth, billingRouter);
+router.use("/admin", requireAuth, adminRouter);
+router.use("/", requireAuth, exportRouter);
+
+export default router;

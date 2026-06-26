@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formate — Safety plans in 60 seconds</title>
+    <meta name="description" content="Free SSSP & SWMS templates for NZ tradies. Fill site safety plans in under 60 seconds — faster than paper. Built for sub-contractors, plumbers, sparkies, builders." />
+    <meta name="keywords" content="SSSP, SSSP template NZ, free SSSP, SWMS, site safety plan, JSA, toolbox talk, tradie safety app, construction safety NZ, WorkSafe NZ, health and safety form" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://formate.co.nz/" />
+    <meta property="og:url" content="https://formate.co.nz/" />
+    <meta property="og:title" content="Formate — Free SSSP & site safety plans in 60 seconds" />
+    <meta property="og:description" content="Free SSSP templates for NZ tradies. Fill a site-specific safety plan in 60 seconds — faster than paper. Built for sub-contractors." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://formate.co.nz/opengraph.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Formate — Free SSSP & site safety plans in 60 seconds" />
+    <meta name="twitter:description" content="Free SSSP templates for NZ tradies. Fill a site-specific safety plan in 60 seconds — faster than paper." />
+    <meta name="twitter:image" content="https://formate.co.nz/opengraph.png" />
+
+    <!-- Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Formate" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="theme-color" content="#0F172A" />
+
+    <!-- Facebook Pixel — stub queues events immediately; the heavy
+         fbevents.js request is deferred until after first paint so it
+         never blocks the landing page rendering on mobile. -->
+    <script>
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[]}(window,document);
+      fbq('init', '1354352703328786');
+      fbq('track', 'PageView');
+      (function(){
+        function loadPixel(){
+          if(window.__fbPixelLoaded)return;window.__fbPixelLoaded=true;
+          var t=document.createElement('script');t.async=true;
+          t.src='https://connect.facebook.net/en_US/fbevents.js';
+          var s=document.getElementsByTagName('script')[0];
+          s.parentNode.insertBefore(t,s);
+        }
+        function schedule(){
+          if('requestIdleCallback' in window){requestIdleCallback(loadPixel,{timeout:2000});}
+          else{setTimeout(loadPixel,300);}
+        }
+        if(document.readyState==='interactive'||document.readyState==='complete')schedule();
+        else window.addEventListener('DOMContentLoaded',schedule);
+        // Also load on first interaction in case the page is left open.
+        ['scroll','mousemove','touchstart','keydown'].forEach(function(ev){
+          window.addEventListener(ev,loadPixel,{once:true,passive:true});
+        });
+      })();
+    </script>
+    <!-- Fonts — async to avoid render-blocking -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+  </head>
+  <body>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1354352703328786&ev=PageView&noscript=1"/></noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+kind = "web"
+previewPath = "/"
+title = "SafeIQ"
+version = "1.0.0"
+id = "artifacts/safeiq"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25469
+
+[services.development]
+run = "pnpm --filter @workspace/safeiq run dev"
+
+[services.production]
+
+[services.production.build]
+args = ["pnpm", "--filter", "@workspace/safeiq", "run", "build"]
+
+[services.production.run]
+# Run the custom static server directly (not via pnpm) for faster startup.
+# It serves dist/public with brotli/gzip compression + Cache-Control headers.
+args = ["node", "artifacts/safeiq/server/index.mjs"]
+
+[services.production.run.env]
+PORT = "25469"
+NODE_ENV = "production"
+
+[services.production.health.startup]
+path = "/"
+
+[services.env]
+PORT = "25469"
+BASE_PATH = "/"

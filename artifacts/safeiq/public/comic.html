@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dave's SSSP — The Formate Funnies</title>
+<style>
+  body { margin: 0; padding: 24px; background: #f5f0e8; font-family: 'Comic Sans MS', 'Chalkboard SE', cursive; display: flex; flex-direction: column; align-items: center; }
+  .header { text-align: center; margin-bottom: 16px; }
+  .header .byline { font-size: 11px; font-weight: bold; letter-spacing: 4px; text-transform: uppercase; color: #888; font-family: Georgia, serif; }
+  .header h1 { font-size: 32px; font-weight: 900; font-family: Georgia, serif; margin: 4px 0 2px; letter-spacing: -1px; }
+  .header .sub { font-size: 13px; color: #666; font-family: Georgia, serif; font-style: italic; }
+  .comic { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 3px solid #111; max-width: 780px; width: 100%; background: #111; }
+  .panel { background: #fef9ec; padding: 12px 14px 16px; position: relative; min-height: 210px; border: 1.5px solid #111; box-sizing: border-box; }
+  .narrator { background: #fffde7; border: 2px solid #111; padding: 3px 8px; font-size: 11px; font-family: Georgia, serif; font-style: italic; display: inline-block; margin-bottom: 6px; }
+  .panel-body { display: flex; align-items: flex-end; gap: 8px; margin-top: 4px; }
+  .bubbles { display: flex; flex-direction: column; gap: 7px; flex: 1; }
+  .speech { background: white; border: 2.5px solid #111; border-radius: 12px; padding: 6px 10px; font-size: 12px; line-height: 1.4; position: relative; max-width: 95%; }
+  .speech.yellow { background: #fff9c4; }
+  .speech::after { content: ''; position: absolute; bottom: -10px; left: 14px; border-left: 8px solid transparent; border-right: 8px solid #111; border-top: 10px solid #111; }
+  .speech::before { content: ''; position: absolute; bottom: -7px; left: 16px; border-left: 6px solid transparent; border-right: 6px solid white; border-top: 8px solid white; z-index: 1; }
+  .speech.yellow::before { border-right-color: #fff9c4; }
+  .thought { background: #f0f0f0; border: 2.5px solid #111; border-radius: 20px; padding: 5px 12px; font-size: 12px; font-style: italic; color: #555; position: relative; display: inline-block; }
+  .thought-dots { display: flex; gap: 3px; margin-top: 3px; padding-left: 14px; }
+  .thought-dots span { background: #f0f0f0; border: 2px solid #111; border-radius: 50%; display: block; }
+  .phone-bubble { background: #e8f5e9; border: 2.5px solid #111; border-radius: 12px; padding: 5px 10px; font-size: 11px; line-height: 1.4; }
+  .phone-label { font-size: 10px; color: #388e3c; font-weight: bold; display: block; margin-bottom: 2px; }
+  .panel-num { position: absolute; bottom: 5px; right: 9px; font-size: 10px; color: #bbb; font-family: Georgia, serif; }
+  .formate-footer { margin-top: 10px; text-align: center; border-top: 2px solid #111; padding-top: 8px; }
+  .formate-footer .wordmark { font-family: Georgia, serif; font-weight: 900; font-size: 14px; letter-spacing: 1px; }
+  .formate-footer .wordmark .mate { color: #f97316; }
+  .formate-footer .tagline { font-size: 10px; color: #555; font-family: Georgia, serif; font-style: italic; }
+  .copyright { margin-top: 10px; font-size: 11px; color: #999; font-family: Georgia, serif; font-style: italic; }
+  .flying-papers { font-size: 20px; position: absolute; top: 10px; right: 10px; line-height: 1; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="byline">The Formate Funnies</div>
+  <h1>DAVE'S SSSP</h1>
+  <div class="sub">A true story. Names changed to protect the guilty.</div>
+</div>
+
+<div class="comic">
+
+  <!-- PANEL 1 -->
+  <div class="panel">
+    <div class="narrator">Monday. 6am. New site.</div>
+    <div class="panel-body">
+      <svg width="75" height="130" viewBox="0 0 80 140">
+        <ellipse cx="40" cy="28" rx="22" ry="8" fill="#f97316" stroke="#111" stroke-width="2"/>
+        <rect x="18" y="20" width="44" height="14" rx="4" fill="#f97316" stroke="#111" stroke-width="2"/>
+        <rect x="14" y="30" width="52" height="5" rx="2" fill="#e86305" stroke="#111" stroke-width="1.5"/>
+        <circle cx="40" cy="50" r="18" fill="#FFD700" stroke="#111" stroke-width="2.5"/>
+        <circle cx="34" cy="47" r="3.5" fill="white" stroke="#111" stroke-width="1.5"/>
+        <circle cx="46" cy="47" r="3.5" fill="white" stroke="#111" stroke-width="1.5"/>
+        <circle cx="34" cy="47" r="2" fill="#111"/>
+        <circle cx="46" cy="47" r="2" fill="#111"/>
+        <path d="M 36 60 L 44 60" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round"/>
+        <ellipse cx="56" cy="44" rx="3" ry="5" fill="#87CEEB" stroke="#111" stroke-width="1"/>
+        <rect x="24" y="67" width="32" height="38" rx="4" fill="#FFD700" stroke="#111" stroke-width="2"/>
+        <rect x="26" y="70" width="10" height="34" rx="2" fill="#f97316" opacity="0.7"/>
+        <rect x="44" y="70" width="10" height="34" rx="2" fill="#f97316" opacity="0.7"/>
+        <line x1="24" y1="75" x2="12" y2="92" stroke="#111" stroke-width="4" stroke-linecap="round"/>
+        <line x1="56" y1="75" x2="68" y2="88" stroke="#111" stroke-width="4" stroke-linecap="round"/>
+        <rect x="63" y="84" width="10" height="16" rx="2" fill="#333" stroke="#111" stroke-width="1.5"/>
+        <rect x="64" y="86" width="8" height="10" rx="1" fill="#87CEEB"/>
+        <text x="59" y="82" font-size="9" fill="#f97316">📳</text>
+        <rect x="28" y="104" width="10" height="28" rx="3" fill="#1565C0" stroke="#111" stroke-width="2"/>
+        <rect x="42" y="104" width="10" height="28" rx="3" fill="#1565C0" stroke="#111" stroke-width="2"/>
+        <rect x="26" y="128" width="14" height="8" rx="3" fill="#333" stroke="#111" stroke-width="1.5"/>
+        <rect x="40" y="128" width="14" height="8" rx="3" fill="#333" stroke="#111" stroke-width="1.5"/>
+      </svg>
+      <div class="bubbles">
+        <div class="phone-bubble">
+          <span class="phone-label">📞 THE BOSS</span>
+          DAVE!! SSSP on site by 7am or you're not starting!!
+        </div>
+        <div class="thought">...where did I put last week's one?</div>
+        <div class="thought-dots">
+          <span style="width:8px;height:8px"></span>
+          <span style="width:5px;height:5px"></span>
+          <span style="width:3px;height:3px"></span>
+        </div>
+      </div>
+    </div>
+    <div class="panel-num">1</div>
+  </div>
+
+  <!-- PANEL 2 -->
+  <div class="panel">
+    <div class="narrator">47 minutes later...</div>
+    <div class="flying-papers">📄 📋 📃</div>
+    <div class="panel-body">
+      <svg width="75" height="130" viewBox="0 0 80 140">
+        <ellipse cx="40" cy="28" rx="22" ry="8" fill="#f97316" stroke="#111" stroke-width="2"/>
+        <rect x="18" y="20" width="44" height="14" rx="4" fill="#f97316" stroke="#111" stroke-width="2"/>
+        <rect x="14" y="30" width="52" height="5" rx="2" fill="#e86305" stroke="#111" stroke-width="1.5"/>
+        <circle cx="40" cy="50" r="18" fill="#FFD700" stroke="#111" stroke-width="2.5"/>
+        <circle cx="34" cy="47" r="4" fill="white" stroke="#111" stroke-width="1.5"/>
+        <circle cx="46" cy="47" r="4" fill="white" stroke="#111" stroke-width="1.5"/>
+        <circle cx="35" cy="47" r="2" fill="#111"/>
+        <circle cx="47" cy="47" r="2" fill="#111"/>
+        <path d="M 35 62 Q 40 56 45 62" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round"/>
+        <rect x="24" y="67" width="32" height="38" rx="4" fill="#FFD700" stroke="#111" stroke-width="2"/>
+        <rect x="26" y="70" width="10" height="34" rx="2" fill="#f97316" opacity="0.7"/>
+        <rect x="44" y="70" width="10" height="34" rx="2" fill="#f97316" opacity="0.7"/>
+        <line x1="24" y1="75" x2="8" y2="60" stroke="#111" stroke-width="4" stroke-linecap="round"/>
+        <line x1="56" y1="75" x2="72" y2="60" stroke="#111" stroke-width="4" stroke-linecap="round"/>
+        <rect x="28" y="104" width="10" height="28" rx="3" fill="#1565C0" stroke="#111" stroke-width="2"/>
+        <rect x="42" y="104" width="10" height="28" rx="3" fill="#1565C0" stroke="#111" stroke-width="2"/>
+        <rect x="26" y="128" width="14" height="8" rx="3" fill="#333" stroke="#111" stroke-width="1.5"/>
+        <rect x="40" y="128" width="14" height="8" rx="3" fill="#333" stroke="#111" stroke-width="1.5"/>
+      </svg>
+      <div class="bubbles">
+        <div class="speech">I HAD it!! It's definitely... somewhere in here...</div>
+      </div>
+    </div>
+    <div class="panel-num">2</div>
+  </div>
+
+  <!-- PANEL 3 -->
+  <div class="panel">
+    <div class="panel-body" style="margin-top:16px">
+      <svg width="70" height="130" viewBox="0 0 80 140">
+        <ellipse cx="40" cy="28" rx="22" ry="8" fill="#1565C0" stroke="#111" stroke-width="2"/>
+        <rect x="18" y="20" width="44" height="14" rx="4" fill="#1565C0" stroke="#111" stroke-width="2"/>
+        <rect x="14" y="30" width="52" height="5" rx="2" fill="#0d47a1" stroke="#111" stroke-width="1.5"/>
+        <circle cx="40" cy="50" r="18" fill="#FFD700" stroke="#111" stroke-width="2.5"/>
+        <path d="M 32 46 Q 34 43 36 46" fill="none" stroke="#111" stroke-width="2"/>
+        <path d="M 44 46 Q 46 43 48 46" fill="none" stroke="#111" stroke-width="2"/>
+        <path d="M 33 57 Q 40 65 47 57" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round"/>
+        <rect x="24" y="67" width="32" height="38" rx="4" fill="#e3f2fd" stroke="#111" stroke-width="2"/>
+        <rect x="26" y="70" width="10" height="34" rx="2" fill="#1565C0" opacity="0.5"/>
+        <rect x="44" y="70" width="10" height="34" rx="2" fill="#1565C0" opacity="0.5"/>
+        <line x1="24" y1="75" x2="12" y2="92" stroke="#111" stroke-width="4" stroke-linecap="round"/>
+        <line x1="56" y1="75" x2="70" y2="78" stroke="#111" stroke-width="4" stroke-linecap="round"/>
+        <rect x="66" y="74" width="10" height="16" rx="2" fill="#333" stroke="#111" stroke-width="1.5"/>
+        <rect x="67" y="76" width="8" height="10" rx="1" fill="#a5d6a7"/>
+        <rect x="28" y="104" width="10" height="28" rx="3" fill="#333" stroke="#111" stroke-width="2"/>
+        <rect x="42" y="104" width="10" height="28" rx="3" fill="#333" stroke="#111" stroke-width="2"/>
+        <rect x="26" y="128" width="14" height="8" rx="3" fill="#333" stroke="#111" stroke-width="1.5"/>
+        <rect x="40" y="128" width="14" height="8" rx="3" fill="#333" stroke="#111" stroke-width="1.5"/>
+      </svg>
+      <div class="bubbles">
+        <div class="speech">Mate. Use Formate. Done in 60 seconds.</div>
+        <div class="speech yellow" style="align-self:flex-end">60 SECONDS?! 😱</div>
+      </div>
+    </div>
+    <div class="panel-num">3</div>
+  </div>
+
+  <!-- PANEL 4 -->
+  <div class="panel">
+    <div class="panel-body">
+      <svg width="75" height="130" viewBox="0 0 80 140">
+        <ellipse cx="40" cy="28" rx="22" ry="8" fill="#f97316" stroke="#111" stroke-width="2"/>
+        <rect x="18" y="20" width="44" height="14" rx="4" fill="#f97316" stroke="#111" stroke-width="2"/>
+        <rect x="14" y="30" width="52" height="5" rx="2" fill="#e86305" stroke="#111" stroke-width="1.5"/>
+        <circle cx="40" cy="50" r="18" fill="#FFD700" stroke="#111" stroke-width="2.5"/>
+        <path d="M 32 46 Q 34 43 36 46" fill="none" stroke="#111" stroke-width="2"/>
+        <path d="M 44 46 Q 46 43 48 46" fill="none" stroke="#111" stroke-width="2"/>
+        <path d="M 35 57 Q 40 64 45 57" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round"/>
+        <rect x="24" y="67" width="32" height="38" rx="4" fill="#FFD700" stroke="#111" stroke-width="2"/>
+        <rect x="26" y="70" width="10" height="34" rx="2" fill="#f97316" opacity="0.7"/>
+        <rect x="44" y="70" width="10" height="34" rx="2" fill="#f97316" opacity="0.7"/>
+        <line x1="24" y1="75" x2="12" y2="92" stroke="#111" stroke-width="4" stroke-linecap="round"/>
+        <line x1="56" y1="75" x2="70" y2="82" stroke="#111" stroke-width="4" stroke-linecap="round"/>
+        <rect x="65" y="78" width="10" height="16" rx="2" fill="#333" stroke="#111" stroke-width="1.5"/>
+        <rect x="66" y="80" width="8" height="10" rx="1" fill="#87CEEB"/>
+        <rect x="28" y="104" width="10" height="28" rx="3" fill="#1565C0" stroke="#111" stroke-width="2"/>
+        <rect x="42" y="104" width="10" height="28" rx="3" fill="#1565C0" stroke="#111" stroke-width="2"/>
+        <rect x="26" y="128" width="14" height="8" rx="3" fill="#333" stroke="#111" stroke-width="1.5"/>
+        <rect x="40" y="128" width="14" height="8" rx="3" fill="#333" stroke="#111" stroke-width="1.5"/>
+      </svg>
+      <div class="bubbles">
+        <div class="speech">Boss, SSSP's sent. ✓</div>
+        <div class="phone-bubble">
+          <span class="phone-label">📞 THE BOSS</span>
+          ...it's been 45 seconds
+        </div>
+        <div class="thought">😎</div>
+        <div class="thought-dots">
+          <span style="width:8px;height:8px"></span>
+          <span style="width:5px;height:5px"></span>
+          <span style="width:3px;height:3px"></span>
+        </div>
+      </div>
+    </div>
+    <div class="formate-footer">
+      <div class="wordmark"><span>FOR</span><span class="mate">MATE</span></div>
+      <div class="tagline">Faster than finding your pen.</div>
+    </div>
+    <div class="panel-num">4</div>
+  </div>
+
+</div>
+
+<div class="copyright">© Formate — formate.co.nz</div>
+
+</body>
+</html>
