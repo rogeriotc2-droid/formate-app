@@ -2,6 +2,7 @@ import express, { type Express } from "express";
 import cors from "cors";
 import pinoHttp from "pino-http";
 import path from "path";
+import { existsSync } from "fs";
 import router from "./routes";
 import { logger } from "./lib/logger";
 import { WebhookHandlers } from "./webhookHandlers";
@@ -65,14 +66,16 @@ app.use(createSessionMiddleware());
 
 app.use("/api", router);
 
-// Serve safeiq frontend static files in production (Railway)
-if (process.env.NODE_ENV === "production") {
-  const frontendDist = path.resolve(process.cwd(), "artifacts/safeiq/dist/public");
+// Serve safeiq frontend static files when the dist folder exists (Railway production)
+const frontendDist = path.resolve(process.cwd(), "artifacts/safeiq/dist/public");
+if (existsSync(frontendDist)) {
   logger.info({ frontendDist }, "Serving frontend static files");
   app.use(express.static(frontendDist));
   app.use((_req, res) => {
     res.sendFile(path.join(frontendDist, "index.html"));
   });
+} else {
+  logger.info({ frontendDist }, "Frontend dist not found — skipping static serving");
 }
 
 export default app;
