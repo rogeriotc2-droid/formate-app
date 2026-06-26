@@ -1,5 +1,5 @@
 [variables]
-NODE_VERSION = "22"
+NIXPACKS_NODE_VERSION = "22"
 
 [phases.install]
 cmds = ["PUPPETEER_SKIP_DOWNLOAD=true pnpm install --no-frozen-lockfile"]
