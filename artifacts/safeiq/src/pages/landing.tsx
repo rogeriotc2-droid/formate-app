@@ -1,6 +1,7 @@
 import { Link } from "wouter";
-import { Shield, Zap, FileText, CheckCircle2, Clock, ArrowRight, Mail, X, Check, Play } from "lucide-react";
+import { Shield, Zap, FileText, CheckCircle2, Clock, ArrowRight, Mail, X, Check } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+import HeroLoop from "@/components/HeroLoop";
 
 const PLANS = [
   {
@@ -25,41 +26,11 @@ const PLANS = [
 ];
 
 function HeroDemo() {
-  const [loaded, setLoaded] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setLoaded(true); observer.disconnect(); } },
-      { rootMargin: "200px" }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <section className="mx-auto w-full max-w-5xl px-5 sm:px-8 -mt-2 sm:-mt-4 pb-16 sm:pb-24">
-      <div
-        ref={ref}
-        className="relative rounded-2xl overflow-hidden border border-white/10 shadow-[0_30px_80px_-20px_rgba(249,115,22,0.35)] bg-[#0F172A]"
-      >
+      <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-[0_30px_80px_-20px_rgba(249,115,22,0.35)] bg-[#0F172A]">
         <div className="aspect-video w-full">
-          {loaded ? (
-            <iframe
-              src="/hero-loop/"
-              title="Formate in action"
-              className="w-full h-full border-0"
-            />
-          ) : (
-            <div className="w-full h-full flex flex-col items-center justify-center gap-4 bg-[#0F172A] cursor-pointer" onClick={() => setLoaded(true)}>
-              <div className="w-16 h-16 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center">
-                <Play className="w-7 h-7 text-primary fill-primary" />
-              </div>
-              <p className="text-white/50 text-sm font-semibold uppercase tracking-widest">Watch Formate in action</p>
-            </div>
-          )}
+          <HeroLoop />
         </div>
       </div>
       <p className="mt-3 text-center text-xs uppercase tracking-[0.2em] text-white/40 font-semibold">
